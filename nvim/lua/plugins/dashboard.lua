@@ -1,36 +1,36 @@
--- Start screen shown when nvim opens with no file (replaces the blank [No Name] buffer).
+-- Start screen shown when nvim opens with no file (snacks.dashboard; snacks is
+-- already loaded for scroll/indent/notifier, so this replaced alpha-nvim).
 return {
-  "goolord/alpha-nvim",
-  event = "VimEnter",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function()
-    local alpha = require("alpha")
-    local dashboard = require("alpha.themes.dashboard")
-
-    dashboard.section.header.val = {
-      "                                                     ",
-      "  ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-      "  ████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-      "  ██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-      "  ██║╚██╗██║ ██╔══╝   ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-      "  ██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-      "  ╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-      "                                                     ",
-    }
-
-    -- Buttons use the SAME keys as your normal keymaps, so they're muscle-memory.
-    dashboard.section.buttons.val = {
-      dashboard.button("space f f", "  Find file", "<cmd>Telescope find_files<cr>"),
-      dashboard.button("space f g", "  Grep text", "<cmd>Telescope live_grep<cr>"),
-      dashboard.button("space f p", "  Recent files", "<cmd>Telescope oldfiles<cr>"),
-      dashboard.button("space f n", "  New file", "<cmd>enew<cr>"),
-      dashboard.button("space e", "  File explorer", "<cmd>Neotree toggle filesystem left<cr>"),
-      dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
-    }
-
-    dashboard.section.footer.val = "  Neovim · mapped from your Zed keybinds"
-    dashboard.opts.layout[1].val = 2 -- top padding
-
-    alpha.setup(dashboard.opts)
-  end,
+  "folke/snacks.nvim",
+  opts = {
+    dashboard = {
+      enabled = true,
+      preset = {
+        header = table.concat({
+          "███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+          "████╗  ██║ ██╔════╝ ██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+          "██╔██╗ ██║ █████╗   ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+          "██║╚██╗██║ ██╔══╝   ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+          "██║ ╚████║ ███████╗ ╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+          "╚═╝  ╚═══╝ ╚══════╝  ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+        }, "\n"),
+        -- Same actions as your space-f keymaps; press the single key on the dashboard.
+        keys = {
+          { icon = "\u{f002} ", key = "f", desc = "Find file", action = "<cmd>Telescope find_files<cr>" },
+          { icon = "\u{f0b0} ", key = "g", desc = "Grep text", action = "<cmd>Telescope live_grep<cr>" },
+          { icon = "\u{f1da} ", key = "r", desc = "Recent files", action = "<cmd>Telescope oldfiles<cr>" },
+          { icon = "\u{f15b} ", key = "n", desc = "New file", action = "<cmd>enew<cr>" },
+          { icon = "\u{f07b} ", key = "e", desc = "File explorer", action = "<cmd>Neotree toggle filesystem left<cr>" },
+          { icon = "\u{f0e7} ", key = "l", desc = "Lazy", action = "<cmd>Lazy<cr>" },
+          { icon = "\u{f011} ", key = "q", desc = "Quit", action = "<cmd>qa<cr>" },
+        },
+      },
+      sections = {
+        { section = "header" },
+        { section = "keys", gap = 1, padding = 1 },
+        { icon = "\u{f1da} ", title = "Recent Files", section = "recent_files", cwd = true, indent = 2, padding = 1 },
+        { section = "startup" },
+      },
+    },
+  },
 }

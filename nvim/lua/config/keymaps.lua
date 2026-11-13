@@ -32,4 +32,8 @@ map("i", "<C-z>", "<C-o>u", { desc = "Undo" })
 -- Esc clears search highlight (so you don't have to type :noh)
 map("n", "<Esc>", "<cmd>nohlsearch <bar> echon ''<cr>", { desc = "Clear search highlight + message line" })
 
+-- Function-focus mode: dim everything outside the current function/block,
+-- like a comment, until you move the cursor into another one. See config/focus.lua.
+map("n", "<leader>z", function() require("config.focus").toggle() end, { desc = "Toggle function focus" })
+
 -- ctrl-o / ctrl-i (jump list) are native in Neovim — nothing to map.

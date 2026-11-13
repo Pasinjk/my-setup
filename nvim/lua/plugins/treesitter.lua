@@ -19,7 +19,7 @@ local langs = {
   "lua", "vim", "vimdoc", "bash",
   "javascript", "typescript", "tsx", "vue",
   "json", "jsonc", "html", "css", "scss", "yaml",
-  "markdown", "markdown_inline", "dockerfile",
+  "markdown", "markdown_inline", "dockerfile", "python",
 }
 
 local function setup_compiler_env()

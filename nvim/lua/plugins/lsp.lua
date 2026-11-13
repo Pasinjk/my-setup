@@ -154,6 +154,7 @@ return {
       local servers = {
         "vtsls", "vue_ls", "eslint", "tailwindcss", "jsonls", "cssls", "html", "lua_ls",
         "yamlls", "dockerls", "docker_compose_language_service", "emmet_language_server",
+        "gopls",
       }
 
       require("mason-lspconfig").setup({

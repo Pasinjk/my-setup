@@ -12,7 +12,7 @@ local catppuccin_integrations = {
 	neotree = true,
 	telescope = true,
 	which_key = true,
-	alpha = true,
+	snacks = true,
 	cmp = true,
 	render_markdown = true,
 	aerial = true,
@@ -140,8 +140,7 @@ local other_specs = {
 		dependencies = "nvim-tree/nvim-web-devicons",
 		opts = {
 			options = {
-				diagnostics = "nvim_lsp",
-				always_show_bufferline = true,
+				diagnostics = "nvim_lsp",				always_show_bufferline = true,
 				offsets = {
 					{ filetype = "neo-tree", text = "Explorer", separator = true },
 				},
@@ -162,16 +161,16 @@ local other_specs = {
 			},
 			sections = {
 				lualine_b = {
-					{ "branch", icon = "🌳" },
-					-- Emoji instead of Nerd Font glyphs -- no special font needed.
+					{ "branch", icon = "\u{e0a0}" },
+					-- Nerd Font glyphs (BlexMono Nerd Font in WezTerm).
 					{
 						"diagnostics",
-						symbols = { error = "❌ ", warn = "⚠️ ", info = "ℹ️ ", hint = "💡 " },
+						symbols = { error = "\u{f057} ", warn = "\u{f071} ", info = "\u{f05a} ", hint = "\u{f0335} " },
 					},
 				},
 				lualine_c = {
 					-- cwd's basename, LazyVim-style project-root breadcrumb.
-					{ function() return vim.fn.fnamemodify(vim.loop.cwd(), ":t") end, icon = "🗂️" },
+					{ function() return vim.fn.fnamemodify(vim.loop.cwd(), ":t") end, icon = "\u{f07b}" },
 					-- LazyVim-style pretty path: relative to cwd, middle-truncated, with a
 					-- modified/readonly marker -- plain vim.fn/vim.bo, no extra plugin.
 					{
@@ -189,11 +188,11 @@ local other_specs = {
 								out = out .. " ●"
 							end
 							if vim.bo.readonly then
-								out = out .. " 🔒"
+								out = out .. " \u{f023}"
 							end
 							return out
 						end,
-						icon = "📄",
+						icon = "\u{f15b}",
 					},
 				},
 				-- Attached LSP client names (useful with vtsls+vue_ls+eslint+tailwindcss
@@ -204,22 +203,22 @@ local other_specs = {
 							local names = vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients({ bufnr = 0 }))
 							return table.concat(names, " ")
 						end,
-						icon = "🔌",
+						icon = "\u{f013}",
 					},
 					-- Pending lazy.nvim plugin updates (same source LazyVim's own statusline uses).
 					{
 						require("lazy.status").updates,
 						cond = require("lazy.status").has_updates,
-						icon = "🔄",
+						icon = "\u{f06b0}",
 					},
 					"diff",
-					{ "encoding", icon = "🔤" },
+					"encoding",
 					{ "fileformat", icons_enabled = false },
 					{ "filetype", icons_enabled = false },
 				},
 				lualine_y = {
 					-- Live "[2/7]" match count while a search is active; empty otherwise.
-					{ "searchcount", icon = "🔍" },
+					{ "searchcount", icon = "\u{f002}" },
 					"progress",
 				},
 				lualine_z = {
@@ -228,8 +227,8 @@ local other_specs = {
 						function() return "⏺ REC @" .. vim.fn.reg_recording() end,
 						cond = function() return vim.fn.reg_recording() ~= "" end,
 					},
-					{ "location", icon = "📍" },
-					{ function() return os.date("%H:%M") end, icon = "🕐" },
+					"location",
+					{ function() return os.date("%H:%M") end, icon = "\u{f017}" },
 				},
 			},
 			-- Clean single-section statuslines for panel/dashboard buffers instead of
@@ -255,13 +254,7 @@ local other_specs = {
 		},
 	},
 
-	-- Indent guides (Zed: indent_guides enabled)
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		main = "ibl",
-		opts = { indent = { char = "│" }, scope = { enabled = true } },
-	},
+	-- Indent guides (Zed: indent_guides enabled) come from snacks.indent (image.lua).
 
 	-- Inline color swatches (#hex / rgb() / hsl() + Tailwind classes) are configured
 	-- in plugins/colorizer.lua -- a single dedicated spec, so it isn't declared here.
